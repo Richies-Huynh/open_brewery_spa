@@ -24,6 +24,7 @@ export default function DataTable({breweries, page, setPage}: {breweries: Brewer
               />
             </APIProvider>
           }
+          <h4>Want to learn more? Give them a call at {selectedBrewery.phone}!</h4>
         </Modal>
       }
       <table>
