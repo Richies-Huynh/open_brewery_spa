@@ -18,6 +18,7 @@ export namespace Brewery {
     street?: string;
   }
 
+  // return a formatted address string
   export function getAddress(brewery: Brewery.Model): string {
     const segments = [
       brewery.street?.trim(),

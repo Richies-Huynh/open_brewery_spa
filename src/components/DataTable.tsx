@@ -13,6 +13,7 @@ export default function DataTable({breweries, page, setPage}: {breweries: Brewer
         <Modal isOpen={true} onClose={() => setSelectedBrewery(null)}>
           <h2>{selectedBrewery.name}</h2>
           <h4>{Brewery.getAddress(selectedBrewery)}</h4>
+
           {selectedBrewery.latitude && selectedBrewery.longitude &&
             <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string}>
               <Map
@@ -24,6 +25,7 @@ export default function DataTable({breweries, page, setPage}: {breweries: Brewer
               />
             </APIProvider>
           }
+
           <h4>Want to learn more? Give them a call at {selectedBrewery.phone}!</h4>
         </Modal>
       }
@@ -51,6 +53,7 @@ export default function DataTable({breweries, page, setPage}: {breweries: Brewer
         <button className={"prev"} onClick={() => setPage(Math.max(1, page - 1))}>Prev</button>
         <button className={"next"} onClick={
           () => {
+            // cant navigate to an empty table
             if (breweries.length > 0)
               setPage(page + 1)
           }
