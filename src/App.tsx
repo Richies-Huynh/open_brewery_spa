@@ -6,9 +6,10 @@ import Title from "./components/Title";
 
 function App() {
   const [breweries, setBreweries] = useState<Brewery.Model[]>([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch('https://api.openbrewerydb.org/v1/breweries?by_city=san_diego', {
+    fetch(encodeURI(`https://api.openbrewerydb.org/v1/breweries?by_city=san_diego&page=${page}`), {
       method: 'GET'
     })
       .then(res => res.json())
@@ -19,8 +20,8 @@ function App() {
 
   return (
     <div>
-      <Title label={"Breweries"}></Title>
-      <DataTable breweries={breweries} />
+      <Title label={"San Diego Breweries"}></Title>
+      <DataTable breweries={breweries} page={page} setPage={setPage} />
     </div>
   );
 }

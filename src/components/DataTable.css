@@ -20,3 +20,16 @@ tbody tr {
 tbody tr:hover {
     background-color: lightgray;
 }
+
+.datatable-buttons {
+    display: flex;
+    width: 75%;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.prev,.next {
+    margin: 25px 0;
+    width: 200px;
+    cursor: pointer;
+}

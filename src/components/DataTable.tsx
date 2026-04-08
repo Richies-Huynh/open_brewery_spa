@@ -4,16 +4,16 @@ import "./DataTable.css"
 import Modal from "./Modal";
 import {APIProvider, Map} from "@vis.gl/react-google-maps";
 
-export default function DataTable({breweries}: {breweries: Brewery.Model[]}): JSX.Element {
+export default function DataTable({breweries, page, setPage}: {breweries: Brewery.Model[], page: number, setPage: (page: number) => void}): JSX.Element {
   const [selectedBrewery, setSelectedBrewery] = useState<Brewery.Model | null>(null);
 
   return (
     <div>
-      { selectedBrewery &&
+      {selectedBrewery &&
         <Modal isOpen={true} onClose={() => setSelectedBrewery(null)}>
           <h2>{selectedBrewery.name}</h2>
           <h4>{Brewery.getAddress(selectedBrewery)}</h4>
-          { selectedBrewery.latitude && selectedBrewery.longitude &&
+          {selectedBrewery.latitude && selectedBrewery.longitude &&
             <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string}>
               <Map
                 style={{width: '50vw', height: '50vh'}}
@@ -46,7 +46,16 @@ export default function DataTable({breweries}: {breweries: Brewery.Model[]}): JS
         ))}
         </tbody>
       </table>
+      <div className={"datatable-buttons"}>
+        <button className={"prev"} onClick={() => setPage(Math.max(1, page - 1))}>Prev</button>
+        <button className={"next"} onClick={
+          () => {
+            if (breweries.length > 0)
+              setPage(page + 1)
+          }
+        }>Next
+        </button>
+      </div>
     </div>
-
   );
 }
