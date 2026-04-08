@@ -2,9 +2,7 @@ import React, {JSX, useState} from "react";
 import { Brewery } from "../types/Brewery"
 import "./DataTable.css"
 import Modal from "./Modal";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-
+import {APIProvider, Map} from "@vis.gl/react-google-maps";
 
 export default function DataTable({breweries}: {breweries: Brewery.Model[]}): JSX.Element {
   const [selectedBrewery, setSelectedBrewery] = useState<Brewery.Model | null>(null);
@@ -15,8 +13,18 @@ export default function DataTable({breweries}: {breweries: Brewery.Model[]}): JS
         <Modal isOpen={true} onClose={() => setSelectedBrewery(null)}>
           <h2>{selectedBrewery.name}</h2>
           <h4>{Brewery.getAddress(selectedBrewery)}</h4>
+          { selectedBrewery.latitude && selectedBrewery.longitude &&
+            <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string}>
+              <Map
+                style={{width: '50vw', height: '50vh'}}
+                defaultCenter={{lat: selectedBrewery.latitude, lng: selectedBrewery.longitude}}
+                defaultZoom={17}
+                gestureHandling='greedy'
+                disableDefaultUI
+              />
+            </APIProvider>
+          }
         </Modal>
-
       }
       <table>
         <thead>

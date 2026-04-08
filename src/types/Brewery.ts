@@ -19,7 +19,12 @@ export namespace Brewery {
   }
 
   export function getAddress(brewery: Brewery.Model): string {
-    return `${brewery.street}, ${brewery.city}, ${brewery.state} ${brewery.postal_code}`;
+    const segments = [
+      brewery.street?.trim(),
+      brewery.city?.trim(),
+      `${brewery.state} ${brewery.postal_code}`.trim(),
+    ].filter((s): s is string => Boolean(s));
+    return segments.join(", ");
   }
 }
 
