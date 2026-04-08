@@ -12,10 +12,10 @@ function App() {
     fetch(encodeURI(`https://api.openbrewerydb.org/v1/breweries?by_city=san_diego&page=${page}`), {
       method: 'GET'
     })
-      .then(res => res.json())
-      .then(breweries => {
-        setBreweries(breweries);
-      })
+    .then(res => res.json())
+    .then(breweries => {
+      setBreweries(breweries);
+    })
   });
 
   return (
